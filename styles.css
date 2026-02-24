@@ -78,6 +78,22 @@
   height: 12px;
 }
 
+.gitlileo-trigger-popular {
+  margin-left: 8px;
+  margin-right: 0;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.2;
+  box-shadow: none;
+  vertical-align: middle;
+}
+
+.gitlileo-trigger-popular svg {
+  width: 11px;
+  height: 11px;
+}
+
 .gitlileo-overlay {
   position: fixed;
   inset: 0;

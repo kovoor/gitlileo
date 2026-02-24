@@ -29,6 +29,7 @@
       scanTimer = null;
       injectButtons();
       injectPinnedCardButtons();
+      injectPopularRepoButtons();
     }, 160);
   }
 
@@ -46,6 +47,17 @@
     if (!href) return null;
     const clean = href.split("?")[0].split("#")[0].replace(/\/$/, "");
     const match = clean.match(/^\/([^/]+)\/([^/]+)$/);
+    if (!match) return null;
+    return {
+      owner: match[1],
+      repo: match[2]
+    };
+  }
+
+  function parseRepoFromStargazersHref(href) {
+    if (!href) return null;
+    const clean = href.split("?")[0].split("#")[0].replace(/\/$/, "");
+    const match = clean.match(/^\/([^/]+)\/([^/]+)\/stargazers$/);
     if (!match) return null;
     return {
       owner: match[1],
@@ -558,9 +570,32 @@
     });
   }
 
+  function injectPopularRepoButtons() {
+    const stargazerLinks = document.querySelectorAll("a[href$='/stargazers']");
+    stargazerLinks.forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+
+      const parsed = parseRepoFromStargazersHref(link.getAttribute("href") || "");
+      if (!parsed) return;
+
+      const card = link.closest("article, li, .pinned-item-list-item, .pinned-item-list-item-content, .Box-row, .col-12");
+      if (!(card instanceof HTMLElement)) return;
+
+      const existing = card.querySelector(
+        `.gitlileo-trigger-popular[data-owner="${parsed.owner}"][data-repo="${parsed.repo}"]`
+      );
+      if (existing) return;
+
+      const trigger = createTrigger(parsed.owner, parsed.repo);
+      trigger.classList.add("gitlileo-trigger-popular");
+      link.insertAdjacentElement("afterend", trigger);
+    });
+  }
+
   function boot() {
     injectButtons();
     injectPinnedCardButtons();
+    injectPopularRepoButtons();
 
     const observer = new MutationObserver(() => {
       debounceScan();
