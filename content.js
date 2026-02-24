@@ -28,12 +28,24 @@
     scanTimer = window.setTimeout(() => {
       scanTimer = null;
       injectButtons();
+      injectPinnedCardButtons();
     }, 160);
   }
 
   function parseRepoFromAction(action) {
     if (!action) return null;
     const match = action.match(/\/([^/]+)\/([^/]+)\/(?:un)?star(?:\?|$)/);
+    if (!match) return null;
+    return {
+      owner: match[1],
+      repo: match[2]
+    };
+  }
+
+  function parseRepoFromHref(href) {
+    if (!href) return null;
+    const clean = href.split("?")[0].split("#")[0].replace(/\/$/, "");
+    const match = clean.match(/^\/([^/]+)\/([^/]+)$/);
     if (!match) return null;
     return {
       owner: match[1],
@@ -516,8 +528,39 @@
     });
   }
 
+  function injectPinnedCardButtons() {
+    const cards = document.querySelectorAll(".pinned-item-list-item-content");
+    cards.forEach((card) => {
+      if (!(card instanceof HTMLElement)) return;
+
+      const repoLink = card.querySelector(
+        "a[itemprop='name codeRepository'][href^='/'], h3 a[href^='/'], h2 a[href^='/']"
+      );
+      if (!(repoLink instanceof HTMLAnchorElement)) return;
+
+      const parsed = parseRepoFromHref(repoLink.getAttribute("href") || "");
+      if (!parsed) return;
+
+      const existing = card.querySelector(
+        `.gitlileo-trigger-card[data-owner="${parsed.owner}"][data-repo="${parsed.repo}"]`
+      );
+      if (existing) return;
+
+      const trigger = createTrigger(parsed.owner, parsed.repo);
+      trigger.classList.add("gitlileo-trigger-card");
+
+      const metaRow = card.querySelector(".pinned-item-meta");
+      if (metaRow instanceof HTMLElement) {
+        metaRow.appendChild(trigger);
+      } else {
+        card.appendChild(trigger);
+      }
+    });
+  }
+
   function boot() {
     injectButtons();
+    injectPinnedCardButtons();
 
     const observer = new MutationObserver(() => {
       debounceScan();

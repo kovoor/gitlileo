@@ -63,6 +63,21 @@
   height: 13px;
 }
 
+.gitlileo-trigger-card {
+  margin-left: 10px;
+  margin-right: 0;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+.gitlileo-trigger-card svg {
+  width: 12px;
+  height: 12px;
+}
+
 .gitlileo-overlay {
   position: fixed;
   inset: 0;
