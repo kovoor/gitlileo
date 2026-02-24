@@ -2,6 +2,14 @@
 
 `gitlileo` is a Chrome extension that adds a **View Who Starred** button on GitHub repository listings and opens a panel to show stargazers for that repository.
 
+## Screenshots
+
+![View Who Starred button on repository card](assets/screenshots/view-who-starred-card.png)
+
+![Stargazers panel view](assets/screenshots/stargazers-panel.png)
+
+![View Who Starred button inline in repo header](assets/screenshots/repo-header-button.png)
+
 ## Features
 
 - Adds `View Who Starred` next to GitHub `Star` controls on repo list views.
