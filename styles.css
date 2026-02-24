@@ -1,0 +1,340 @@
+:root {
+  --gitlileo-orange: #f8a45c;
+  --gitlileo-orange-deep: #ef7f3f;
+  --gitlileo-cream: #ffe1c8;
+  --gitlileo-ink: #111012;
+  --gitlileo-panel: #18161b;
+  --gitlileo-panel-2: #211d24;
+  --gitlileo-border: rgba(255, 255, 255, 0.16);
+  --gitlileo-text: #f5f2ec;
+  --gitlileo-subtext: #c2bcc4;
+  --gitlileo-success: #7fd887;
+  --gitlileo-navy-btn: #1f2937;
+  --gitlileo-navy-btn-hover: #273446;
+  --gitlileo-navy-btn-border: #3b4a5f;
+}
+
+.gitlileo-trigger {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 8px;
+  margin-right: 8px;
+  padding: 7px 12px;
+  border: 1px solid var(--gitlileo-navy-btn-border);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--gitlileo-navy-btn-hover) 0%, var(--gitlileo-navy-btn) 100%);
+  color: #dbe7f6;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(7, 12, 22, 0.35);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+}
+
+.gitlileo-trigger:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 6px 18px rgba(7, 12, 22, 0.5);
+}
+
+.gitlileo-trigger svg {
+  width: 14px;
+  height: 14px;
+  fill: #f6c55f;
+  flex: 0 0 14px;
+}
+
+.gitlileo-trigger-header {
+  height: 28px;
+  margin-right: 8px;
+  margin-left: 0;
+  padding: 0 9px;
+  border-radius: 6px;
+  justify-content: center;
+  gap: 7px;
+  align-self: center;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.gitlileo-trigger-header svg {
+  width: 13px;
+  height: 13px;
+}
+
+.gitlileo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+}
+
+.gitlileo-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gitlileo-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(460px, 100vw);
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-left: 1px solid var(--gitlileo-border);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(248, 164, 92, 0.09), transparent 44%),
+    radial-gradient(circle at 100% 100%, rgba(51, 86, 149, 0.16), transparent 50%),
+    linear-gradient(180deg, #171923 0%, #0f1422 100%);
+  box-shadow: -24px 0 42px rgba(0, 0, 0, 0.45);
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+  pointer-events: all;
+}
+
+.gitlileo-eyebrow {
+  margin: 0;
+  color: var(--gitlileo-cream);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.gitlileo-overlay.is-open {
+  pointer-events: all;
+}
+
+.gitlileo-overlay.is-open .gitlileo-backdrop {
+  opacity: 1;
+}
+
+.gitlileo-overlay.is-open .gitlileo-panel {
+  transform: translateX(0);
+}
+
+.gitlileo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gitlileo-border);
+}
+
+.gitlileo-header h2 {
+  margin: 2px 0 6px;
+  color: var(--gitlileo-text);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.gitlileo-repo {
+  margin: 0;
+  color: var(--gitlileo-subtext);
+  font-size: 13px;
+}
+
+.gitlileo-close {
+  border: 1px solid var(--gitlileo-border);
+  background: var(--gitlileo-panel-2);
+  color: var(--gitlileo-text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.gitlileo-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gitlileo-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(124, 161, 219, 0.45);
+  color: #d5e4ff;
+  background: rgba(54, 87, 140, 0.3);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+
+.gitlileo-settings-toggle,
+.gitlileo-save-token,
+.gitlileo-clear-token,
+.gitlileo-load-more,
+.gitlileo-login {
+  border: 1px solid var(--gitlileo-border);
+  border-radius: 9px;
+  background: var(--gitlileo-panel-2);
+  color: var(--gitlileo-text);
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.gitlileo-settings {
+  border: 1px solid var(--gitlileo-border);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--gitlileo-subtext);
+}
+
+.gitlileo-settings p {
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+
+.gitlileo-settings label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.gitlileo-token-input {
+  width: 100%;
+  border: 1px solid var(--gitlileo-border);
+  border-radius: 8px;
+  background: #0f0d12;
+  color: var(--gitlileo-text);
+  padding: 8px;
+}
+
+.gitlileo-settings-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.gitlileo-token-status {
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.gitlileo-status {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  padding: 10px;
+}
+
+.gitlileo-status.loading {
+  border-color: rgba(255, 111, 60, 0.4);
+  background: rgba(255, 111, 60, 0.12);
+  color: var(--gitlileo-cream);
+}
+
+.gitlileo-status.error {
+  border-color: rgba(255, 120, 120, 0.45);
+  background: rgba(255, 97, 97, 0.15);
+  color: #ffd8d8;
+}
+
+.gitlileo-status.empty {
+  border-color: var(--gitlileo-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--gitlileo-subtext);
+}
+
+.gitlileo-login {
+  color: var(--gitlileo-success);
+  border-color: rgba(127, 216, 135, 0.35);
+  text-decoration: none;
+  text-align: center;
+}
+
+.gitlileo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: auto;
+  min-height: 120px;
+  padding-right: 2px;
+}
+
+.gitlileo-user {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--gitlileo-border);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--gitlileo-text);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: gitlileo-row-in 0.25s ease forwards;
+}
+
+.gitlileo-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1px solid var(--gitlileo-border);
+}
+
+.gitlileo-user-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gitlileo-user-meta strong {
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.gitlileo-user-meta span {
+  font-size: 12px;
+  color: var(--gitlileo-subtext);
+}
+
+.gitlileo-link {
+  color: var(--gitlileo-cream);
+  font-size: 12px;
+}
+
+.gitlileo-load-more {
+  margin-top: auto;
+}
+
+@keyframes gitlileo-row-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .gitlileo-panel {
+    width: 100vw;
+    padding: 16px;
+  }
+
+  .gitlileo-header h2 {
+    font-size: 18px;
+  }
+
+  .gitlileo-trigger {
+    margin-right: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
